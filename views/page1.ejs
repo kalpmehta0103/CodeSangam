@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BillBuddy</title>
+    <link rel="stylesheet" href="/css/page1.css">
+    <link rel="icon" type="icon/x-image" href="/Image/edit.png">
+    <script src="/js/page1.js" defer></script>
+</head>
+<body>
+    <div class="action">
+        <div class="profile" onclick="menuToggle();">
+            <img src="/Image/img.jpg">
+        </div>
+        <div class="menu">
+            <h3>Person<br><span>Profession</span></h3>
+            <ul>
+                <li><img src="/Image/user.png"><a href="/myProfile">My Profile</a></li>
+                <li><img src="/Image/edit.png"><a href="/editProfile">Edit Profile</a></li>
+                <li><img src="/Image/envelope.png"><a href="/inbox">Inbox</a></li>
+                <li><img src="/Image/settings.png"><a href="/settings">Settings</a></li>
+                <li><img src="/Image/question.png"><a href="/help">Help</a></li>
+                <li><img src="/Image/log-out.png"><a href="/login">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <nav class="nav">
+        <i class="uil uil-bars navOpenBtn"></i>
+        <a href="#" class="logo">BillBuddy</a>
+    
+        <ul class="nav-links">
+            <i class="uil uil-times navCloseBtn"></i>
+            <li><a href="#" id="n">Home</a></li>
+            <li><a href="#" id="n">Services</a></li>
+            <li><a href="#" id="n">Products</a></li>
+            <li><a href="#" id="n">About Us</a></li>
+            <li><a href="#" id="n">Contact Us</a></li>
+        </ul>
+    
+        </nav>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BillBuddy</title>
+        <link rel="stylesheet" href="/css/page1.css">
+        <link rel="icon" type="icon/x-image" href="/Image/edit.png">
+        <script src="/js/page1.js" defer></script>
+    </head>
+    <body>
+        <div class="action">
+            <div class="profile" onclick="menuToggle();">
+                <img src="/Image/img.jpg">
+            </div>
+            <div class="menu">
+                <h3>Person<br><span>Profession</span></h3>
+                <ul>
+                    <li><img src="/images/user.png"><a href="/myProfile">My Profile</a></li>
+                    <li><img src="/images/edit.png"><a href="/editProfile">Edit Profile</a></li>
+                    <li><img src="/images/envelope.png"><a href="/inbox">Inbox</a></li>
+                    <li><img src="/images/settings.png"><a href="/settings">Settings</a></li>
+                    <li><img src="/images/question.png"><a href="/help">Help</a></li>
+                    <li><img src="/images/log-out.png"><a href="/login">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <nav class="nav">
+            <i class="uil uil-bars navOpenBtn"></i>
+            <a href="#" class="logo">BillBuddy</a>
+    
+            <ul class="nav-links">
+                <i class="uil uil-times navCloseBtn"></i>
+                <!-- <li><a href="/addExpense" id="n">Add Expense</a></li> -->
+                <li><a href="/addExpense/<%= name %>" id="n">Add Expense</a></li>
+                <li><a href="/viewExpense/<%=  name %>" id="n">View Expense</a></li>
+                <li><a href="#" id="n">Products</a></li>
+                <li><a href="#" id="n">About Us</a></li>
+                <li><a href="#" id="n">Contact Us</a></li>
+            </ul>
+    
+            </nav>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </div>
+    
+        <script>
+            function menuToggle(){
+                const toggleMenu = document.querySelector('.menu');
+                toggleMenu.classList.toggle('active')
+            }
+        </script>
+    </body>
+    </html>
+    
+    <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector('.menu');
+            toggleMenu.classList.toggle('active')
+        }
+    </script>
+</body>
+</html>

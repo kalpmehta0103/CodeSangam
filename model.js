@@ -13,13 +13,9 @@ const tempSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    },
-    cpassword:{
-        type: String,
-        required: true
     }
 });
 
-const tempCollection = new mongoose.model('tempCollection', tempSchema);
+const User = mongoose.model('tempCollection', tempSchema);
 
-module.exports = tempCollection;
+module.exports = User;
