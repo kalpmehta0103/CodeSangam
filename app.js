@@ -186,6 +186,112 @@ app.get('/viewExpense/:name', async function (req, res) {
     }
 });
 
+// getting the stocks list the user has added
+app.get('/stocks/:name', async function (req, res) {
+    // checking whether user with given name exist or not redirecting on basis of different conditions
+    const user = await User.findOne({ name: req.params.name });
+    if (!user) {
+        // if user doesnot exist redirecting it to sign up
+        res.redirect('/signup');
+    } else {
+        // if exist then redirecting it to stocks
+        const userData = await Shares.findOne({ name: req.params.name });
+        if (userData) {
+            // if user with name is found in Database then rendering all the stocks
+            const stocks = userData.shares
+            res.render('stocks', { name: req.params.name, stocks: stocks });
+        } else {
+            // if no user found then rendering the empty stocks array
+            res.render('stocks', { name: req.params.name, stocks: [] });
+        }
+    }
+});
+
+// adding the given stock in the database of the user with the given name parameters
+app.post('/stocks/:name', async function (req, res) {
+    // creating new stockName model
+    const stock = new StockName({
+        shares: req.body.newItem
+    });
+    const data = await Shares.findOne({ name: req.params.name });
+    if (!data) {
+        const newUser = new Shares({
+            name: req.params.name,
+            shares: [stock]
+        });
+        newUser.save();
+    } else {
+        data.shares.push(stock);
+        data.save();
+    }
+    res.redirect('/stocks/' + req.params.name);
+});
+
+// To Delete the item from the list!!! Feature currently not working
+app.post('/delete/:name', async function (req, res) {
+    const checkedItem = req.body.checkbox;
+    await Shares.updateOne({ name: req.params.name }, { $pull: { shares: { _id: checkedItem } } });
+    res.redirect('/stocks/' + req.params.name);
+});
+
+// getting the stats of the stocks
+app.get('/stats/:name', async function (req, res) {
+    
+    // requesting the api
+    const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + req.params.name + '.BSE&apikey=' + process.env.APIKEY;
+    // const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo'
+    request.get({
+        url: url,
+        json: true,
+        headers: { 'User-Agent': 'request' }
+    }, function (err, result, data) {
+        if (err) {
+            console.log(err);
+        } else if (result.statusCode !== 200) {
+            console.log(res.statusCode);
+        } else {  
+            // getting the data details
+            // getting the opening of the day of stocks
+            const openVal = Object.entries(data["Time Series (Daily)"]).map(([date, values]) => {
+                return {
+                    date,
+                    open: values["1. open"]
+                }
+            });
+            // getting the closing of the day of stocks
+            const closeVal = Object.entries(data["Time Series (Daily)"]).map(([date, values]) => {
+                return {
+                    date,
+                    close: values["4. close"]
+                }
+            });
+            // getting the highest value of stocks
+            const highVal = Object.entries(data["Time Series (Daily)"]).map(([date, values]) => {
+                return {
+                    date,
+                    high: values["2. high"]
+                }
+            });
+            // getting the lowest value of stocks
+            const lowVal = Object.entries(data["Time Series (Daily)"]).map(([date, values]) => {
+                return {
+                    date,
+                    low: values["3. low"]
+                }
+            });
+            const date = [];
+            openVal.forEach(function(stock) {
+                const dates = stock.date.split('-')[1];
+                date.push(dates);
+            });
+            // rendering the stats 
+            const month = (Number(new Date().getMonth()) + 1).toString();
+            res.render('stats', { name: req.params.name, open: openVal, close: closeVal, low: lowVal, high: highVal, date: date, currentMonth: month });
+        }
+    });
+});   
+
+
 app.listen(3000, function () {
     console.log('http://localhost:3000/');
 });
