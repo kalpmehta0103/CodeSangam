@@ -5,7 +5,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Montserrat;
-    background-image: url('homepage_bkg.png');
+    
+}
+body{
+  background-image: url('../Image/homepage_bkg.png');
 }
 
 .header{
@@ -67,7 +70,7 @@
     flex-direction: column;
     background-color: #EDDCD9;
     height: auto;
-    width: auto;
+    width: 400px;
     border: 2px solid #264143;
     border-radius: 20px;
     box-shadow: 3px 4px 0px 1px #E99F4C;
