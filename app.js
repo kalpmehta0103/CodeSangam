@@ -488,6 +488,34 @@ app.get('/viewGroup/:name/:group', async function(req, res) {
         }
     }
 });
+
+app.post('/profileDash', function(req,res){
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const phone = req.body.pno;
+    const age = req.body.age;
+    const income = req.body.income;
+    const job= req.body.job;
+    const esavings = req.body.esavings;
+    const gender = req.body.gender;
+
+    const newProfile = new profile({
+        fname:fname,
+        lname:lname,
+        age:age,
+        job:job,
+        email:email,
+        phone:phone,
+        income:income,
+        esavings: esavings,
+        gender: gender
+
+    });
+    newProfile.save();
+    res.redirect('/dashboard/' + req.body.fname +'/' + req.body.email)
+});
+
  
 
 
