@@ -235,7 +235,7 @@ app.post('/delete/:name', async function (req, res) {
 });
 
 // getting the stats of the stocks
-app.get('/stats/:name', async function (req, res) {
+app.get('/stats/:userName/:name', async function (req, res) {
     
     // requesting the api
     const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + req.params.name + '.BSE&apikey=' + process.env.APIKEY;
@@ -286,7 +286,7 @@ app.get('/stats/:name', async function (req, res) {
             });
             // rendering the stats 
             const month = (Number(new Date().getMonth()) + 1).toString();
-            res.render('stats', { name: req.params.name, open: openVal, close: closeVal, low: lowVal, high: highVal, date: date, currentMonth: month });
+            res.render('stats', { name: req.params.name, open: openVal, close: closeVal, low: lowVal, high: highVal, date: date, currentMonth: month, userName: req.params.userName });
         }
     });
 });  
