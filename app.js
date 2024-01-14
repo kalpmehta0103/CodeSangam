@@ -489,7 +489,9 @@ app.get('/viewGroup/:name/:group', async function(req, res) {
     }
 });
 
+// posting profile page if the profile already doesnot exist
 app.post('/profileDash', function(req,res){
+    // taking in the user input
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
@@ -500,6 +502,7 @@ app.post('/profileDash', function(req,res){
     const esavings = req.body.esavings;
     const gender = req.body.gender;
 
+    // creating new profile
     const newProfile = new profile({
         fname:fname,
         lname:lname,
@@ -512,7 +515,9 @@ app.post('/profileDash', function(req,res){
         gender: gender
 
     });
+    // saving new profile
     newProfile.save();
+    // redirecting it to the dashboard
     res.redirect('/dashboard/' + req.body.fname +'/' + req.body.email)
 });
 
